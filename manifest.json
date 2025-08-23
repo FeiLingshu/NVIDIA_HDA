@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "NVIDIA_HDA",
+  "description": "https://github.com/FeiLingshu/NVIDIA_HDA",
+  "version": "999.9.9",
+  "icons": {
+      "128": "icons/logo128.png",
+      "48": "icons/logo48.png",
+      "16": "icons/logo16.png"
+   },
+  "host_permissions": [
+    "https://www.nvidia.cn/*"
+  ],
+  "permissions": [
+    "storage",
+    "scripting",
+    "webNavigation"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/logo48.png"
+  },
+  "web_accessible_resources": [{
+    "resources": ["replaced-script.js"],
+    "matches": ["https://www.nvidia.cn/*"]
+  }]
+}
