@@ -11,8 +11,8 @@
     <b style="color: #9f9f9f;">推荐值：64</b>
     <b style="color: #9f9f9f;">NVIDIA官网解析数据较慢，请耐心等待一会儿</b>
   </div>
-  <div style="display: flex; align-items: center; gap: 10px; height: 25px; margin-top: 10px;">
-    <input type="number" id="paramInput" placeholder="输入数值" max="255" min="0" style="background: #303030; color: #dfdfdf; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; box-sizing: border-box;"/>
+  <div style="display: flex; align-items: center; gap: 10px; height: 25px; margin-top: 10px; margin-bottom: 10px;">
+    <input type="number" id="paramInput" placeholder="输入数值" max="255" min="1" style="background: #303030; color: #dfdfdf; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; box-sizing: border-box;"/>
     <button id="saveBtn"
       style="background: #76b900; color: #000000; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; padding-left: 10px; padding-right: 10px; box-sizing: border-box;">
       <b  style="color: #000000;">保存配置</b>
@@ -21,6 +21,28 @@
       style="background: #96726f; color: #000000; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; padding-left: 10px; padding-right: 10px; box-sizing: border-box;">
       <b style="color: #000000;">重置</b>
     </button>
+  </div>
+  <div style="gap: 20px; display: block;">
+    <label style="display: flex; align-items: center; color: #9f9f9f;">
+      <input type="radio" name="contact" value="0" checked>
+      <b style="margin-left: 5px;">无附加操作（默认）</b>
+    </label>
+    <label style="display: flex; align-items: center; color: #9f9f9f;">
+      <input type="radio" name="contact" value="1">
+      <b style="margin-left: 5px;">强制查询Standard版本</b>
+    </label>
+    <label style="display: flex; align-items: center; color: #9f9f9f;">
+      <input type="radio" name="contact" value="2" disabled>
+      <b style="margin-left: 5px;">强制查询Beta版本</b>
+    </label>
+    <label style="display: block; margin-top: 5px; background: #303030; color: #9f9f9f; border-radius: 5px;">
+      <div style="display: block; margin-left: 10px; margin-right: 10px; padding-top: 5px;">
+        <b>如安装Standard版本驱动，更新/降级时建议使用DDU卸载旧版后再安装</b>
+      </div>
+      <div style="display: block; margin-left: 10px; margin-right: 10px; margin-top: 5px; padding-bottom: 5px;">
+        <b>当前Bate版本的查询参数存在问题，相关功能暂不开放</b>
+      </div>
+    </label>
   </div>
   <hr style="border: 0; height: 1px; background: #404040; margin-top: 10px; margin-bottom: 10px;"/>
   <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">

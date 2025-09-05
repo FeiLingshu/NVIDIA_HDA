@@ -55,8 +55,23 @@
                     // 从存储中获取参数
                     var replacestd = "numberOfResults=__USER_VALUE__";
 					var modifiedQueryString = s.url.replace(/numberOfResults=10/g, replacestd);
+                    if ("__SWITCH_#1__")
+                    {
+                        modifiedQueryString = modifiedQueryString.replace(/dch=1/g, "dch=0");
+                        debugstd += "\n已强制搜索Standard驱动（默认仅显示DCH驱动）";
+                    }
+                    if ("__SWITCH_#2__")
+                    {
+                        modifiedQueryString = modifiedQueryString.replace(/beta=null/g, "beta=1");
+					    modifiedQueryString = modifiedQueryString.replace(/beta=0/g, "beta=1");
+					    modifiedQueryString = modifiedQueryString.replace(/isWHQL=1/g, "isWHQL=0");
+					    modifiedQueryString = modifiedQueryString.replace(/upCRD=0/g, "upCRD=null");
+					    modifiedQueryString = modifiedQueryString.replace(/upCRD=1/g, "upCRD=null");
+                        debugstd += "\n警告：尝试使用尚未支持的操作！";
+                    }
 					s.url = modifiedQueryString;
 					debugstd += `\n已完成对目标数据的修改，当前替换值：${replacestd}`;
+                    debugstd += `\n当前请求链接：${s.url}`;
 				}
 				else
 				{

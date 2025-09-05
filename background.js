@@ -1,4 +1,4 @@
-async function replaceScript(tabId, userdata) {
+async function replaceScript(tabId, userdata, funcid) {
   try {
     // 第一步：移除目标脚本
     await chrome.scripting.executeScript({
@@ -24,6 +24,40 @@ async function replaceScript(tabId, userdata) {
           /__USER_VALUE__/g,
           userdata
         );
+    switch (funcid) {
+      case "0":
+        scriptContent = scriptContent.replace(
+          /"__SWITCH_#1__"/g,
+          "false"
+        );
+        scriptContent = scriptContent.replace(
+          /"__SWITCH_#2__"/g,
+          "false"
+        );
+        break;
+      case "1":
+        scriptContent = scriptContent.replace(
+          /"__SWITCH_#1__"/g,
+          "true"
+        );
+        scriptContent = scriptContent.replace(
+          /"__SWITCH_#2__"/g,
+          "false"
+        );
+        break;
+      case "2":
+        scriptContent = scriptContent.replace(
+          /"__SWITCH_#1__"/g,
+          "false"
+        );
+        scriptContent = scriptContent.replace(
+          /"__SWITCH_#2__"/g,
+          "true"
+        );
+        break;
+      default:
+        break;
+    }
     await chrome.scripting.executeScript({
       target: { tabId: tabId },
       func: (content, ud) => {
@@ -46,8 +80,10 @@ async function replaceScript(tabId, userdata) {
 chrome.webNavigation.onCompleted.addListener(async (details) => {
   if (details.frameId === 0) { // 仅主框架
     const { scriptParam } = await chrome.storage.local.get('scriptParam');
-    const paramValue = scriptParam || '10';
-    replaceScript(details.tabId, paramValue);
+    const paramValue = scriptParam || 10;
+    const { funcParam } = await chrome.storage.local.get('funcParam');
+    const funcValue  = funcParam || 0;
+    replaceScript(details.tabId, paramValue, funcValue);
   }
 }, {
   url: [{ 
