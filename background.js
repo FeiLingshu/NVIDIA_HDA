@@ -83,7 +83,7 @@ chrome.webNavigation.onCompleted.addListener(async (details) => {
     const paramValue = scriptParam || 10;
     const { funcParam } = await chrome.storage.local.get('funcParam');
     const funcValue  = funcParam || 0;
-    replaceScript(details.tabId, paramValue, funcValue);
+    replaceScript(details.tabId, paramValue, funcValue.toString());
   }
 }, {
   url: [{ 
