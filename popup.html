@@ -12,7 +12,7 @@
     <b style="color: #9f9f9f;">NVIDIA官网解析数据较慢，请耐心等待一会儿</b>
   </div>
   <div style="display: flex; align-items: center; gap: 10px; height: 25px; margin-top: 10px; margin-bottom: 10px;">
-    <input type="number" id="paramInput" placeholder="输入数值" max="255" min="1" style="background: #303030; color: #dfdfdf; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; box-sizing: border-box;"/>
+    <input type="number" step="1" id="paramInput" placeholder="输入数值" max="255" min="1" style="background: #303030; color: #dfdfdf; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; box-sizing: border-box;"/>
     <button id="saveBtn"
       style="background: #76b900; color: #000000; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; padding-left: 10px; padding-right: 10px; box-sizing: border-box;">
       <b  style="color: #000000;">保存配置</b>
@@ -35,12 +35,40 @@
       <input type="radio" name="contact" value="2" disabled>
       <b style="margin-left: 5px;">强制查询Beta版本</b>
     </label>
-    <label style="display: block; margin-top: 5px; background: #303030; color: #9f9f9f; border-radius: 5px;">
+    <div>
+      <input type="number" step="0.01" id="versionInput" placeholder="输入具体驱动版本号" style="background: #303030; color: #dfdfdf; border: 1px solid #dfdfdf; border-radius: 5px; width: 240px; height: 25px; box-sizing: border-box; margin-top: 10px;"/>
+      <input type="number" step="1" id="releaseInput" placeholder="输入驱动release系列号（Beta）" style="background: #303030; color: #dfdfdf; border: 1px solid #dfdfdf; border-radius: 5px; width: 240px; height: 25px; box-sizing: border-box; margin-top: 10px;"/>
+
+      <div style="display: flex; align-items: center; gap: 10px; height: 25px; margin-top: 10px; margin-bottom: 10px;">
+        <button id="addBtn"
+          style="background: #76b900; color: #000000; border: 1px solid #dfdfdf; border-radius: 5px; height: 25px; padding-left: 10px; padding-right: 10px; box-sizing: border-box;">
+        <b  style="color: #000000;">添加查询参数</b>
+        <button id="noaddBtn"
+          style="background: #96726f; color: #000000; border: 1px solid #dfdfdf; border-radius: 5px; height: 100%; padding-left: 10px; padding-right: 10px; box-sizing: border-box;">
+        <b style="color: #000000;">移除查询参数</b>
+    </button>
+  </div>
+
+    </button>
+    </div>
+    <hr style="border: 0; height: 1px; background: #404040; margin-top: 10px; margin-bottom: 10px;"/>
+    <label style="display: block; margin-top: 10px; background: #303030; color: #9f9f9f; border-radius: 5px;">
       <div style="display: block; margin-left: 10px; margin-right: 10px; padding-top: 5px;">
         <b>如安装Standard版本驱动，更新/降级时建议使用DDU卸载旧版后再安装</b>
       </div>
       <div style="display: block; margin-left: 10px; margin-right: 10px; margin-top: 5px; padding-bottom: 5px;">
         <b>当前Bate版本的查询参数存在问题，相关功能暂不开放</b>
+      </div>
+    </label>
+    <label style="display: block; margin-top: 10px; background: #303030; color: #9f9f9f; border-radius: 5px;">
+      <div style="display: block; margin-left: 10px; margin-right: 10px; padding-top: 5px;">
+        <b>支持通过具体驱动版本号进行查询（启用时查询结果将永远返回1条，留空以使用默认查询策略）</b>
+      </div>
+      <div style="display: block; margin-left: 10px; margin-right: 10px; padding-top: 5px;">
+        <b>支持通过release系列号进行查询（该参数意义不明，目前仅测试用，留空以使用默认查询策略）</b>
+      </div>
+      <div style="display: block; margin-left: 10px; margin-right: 10px; margin-top: 5px; padding-bottom: 5px;">
+        <b>以上两种附加查询参数「 互斥 」</b>
       </div>
     </label>
   </div>

@@ -1,9 +1,9 @@
-async function replaceScript(tabId, r_script, userdata, funcid) {
+async function replaceScript(tabId, r_script, userdata, funcid, plus) {
   try {
     // 第一步：移除目标脚本
     await chrome.scripting.executeScript({
       target: { tabId: tabId },
-      func: async (rs, data, id) => {
+      func: async (rs, data, id, add) => {
         let content = "";
         let scriptcaches = "";
         // 使用正则表达式匹配动态哈希
@@ -85,17 +85,21 @@ async function replaceScript(tabId, r_script, userdata, funcid) {
             default:
               break;
           }
+          rs = rs.replace(
+            /__ADD_VALUE__/g,
+            add
+          );
           let JS = content.match(/(\(function\(\$,\s*window\)\s*\{[\s\S]*?if\s*\(s.hook\)\s*\{)([\s\S]*?\}\s*\(jQuery,\s*this\)\);)/);
           rs = JS[1] + "\n" + rs + JS[2];
           // 注入动态脚本
           const replacescript = document.createElement('script');
           replacescript.textContent = rs;
           document.documentElement.appendChild(replacescript);
-          const resultstd = `+-------------------+\n| NVIDIA历史驱动解析 |\n+-------------------+\n已注入修改后的脚本，参数：numberOfResults=${data}，附加操作：ID=${id}`;
+          const resultstd = `+-------------------+\n| NVIDIA历史驱动解析 |\n+-------------------+\n已注入修改后的脚本，参数：numberOfResults=${data}，附加操作：ID=${id}，额外查询参数：${add || "(undefined)"}`;
           console.log(resultstd);
         };
       },
-      args: [r_script, userdata, funcid],
+      args: [r_script, userdata, funcid, plus],
       world: "MAIN" // 确保操作页面 DOM
     });
   } catch (error) {
@@ -112,7 +116,18 @@ chrome.webNavigation.onCompleted.addListener(async (details) => {
     const paramValue = scriptParam || 10;
     const { funcParam } = await chrome.storage.local.get('funcParam');
     const funcValue = funcParam || 0;
-    replaceScript(details.tabId, scriptContent, paramValue.toString(), funcValue.toString());
+    const { vParam } = await chrome.storage.local.get('vParam');
+    const { rParam } = await chrome.storage.local.get('rParam');
+    const vValue = vParam || '';
+    const rValue = rParam || '';
+    let plusstd = '';
+    if (vValue != '') {
+      plusstd = `version=${vValue.toString()}`;
+    }
+    if (rValue != '') {
+      plusstd = `release=${rValue.toString()}`;
+    }
+    replaceScript(details.tabId, scriptContent, paramValue.toString(), funcValue.toString(), plusstd.toString());
   }
 }, {
   url: [{
